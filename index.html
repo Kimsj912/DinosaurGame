@@ -5,19 +5,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>불꽃탐험대</title>
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <style>
+        .center-block {
+            display: block;
+            margin-left: auto;
+            margin-right: auto; 
+        }
+
+        .main_container{
+            width: 500px;
+            height: 400px;
+            
+        }
+        title{
+            background-color: black;
+        }
         canvas { 
             background-color: whitesmoke;
-            align-content: center;
         }
     </style>
 </head>
 <body>
-    <title>
-        <pre>level : </pre><pre>0</pre>
-    </title>
-    <canvas id="canvas"> <!-- canvas는 그림, 이미지를 그릴 수 있게하는 태그 -->
-        <script src="main.js"></script>
-    </canvas>
+    <div class="center-block"> 
+        <p class="bg-danger">
+            score : <span id="score">00000</span>
+            life : <span id="myLife">3</span>
+            <button id="hearts" type="button" class="btn btn-link">
+                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+            </button>
+            <button id = "restart" type="button" class="btn btn-default">
+                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+            </button>
+        </p>
+        <canvas id="canvas"> <!-- canvas는 그림, 이미지를 그릴 수 있게하는 태그 -->
+            <script src="main.js"></script>
+        </canvas>
+    </div>
 </body>
 </html>
