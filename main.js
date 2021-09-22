@@ -6,18 +6,29 @@ canvas.height =window.innerHeight -100;
 // 여기까지가 기본 canvas를 사용하기 위한 환경을 마련한것.
 
 // object자료로 등장 캐릭터의 속성을 미리 정의
+
+// var img 
+// for (let index = 0; index < array.length; index++) {
+//     const element = array[index];
+    
+// }
+
+var img1 = new Image();
+img1.src='image/man1.png';
+
 var dino = {
     // 공룡 등장 위치
     x:10, 
     y:200,
     // 공룡 폭과 높이
     width : 50,
-    height : 50,
+    height : 72,
 
     // 공룡 등장마다 호출할 method
     draw(){
         ctx.fillStyle = 'green';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.fillRect(this.x, this.y, this.width, this.height);//hitbox
+        ctx.drawImage(img1,this.x,this.y,this.width,this.height);
     }
 }
 
@@ -60,16 +71,6 @@ function runByFrame(){
         cactusArr.push(cactus);
     }
 
-    cactusArr.forEach((object , index  ,arr)=>{
-        if(object.x<0) {
-            arr.splice(index,1); // 지우기
-        }
-        object.x-=3;
-        isCrashed(dino, object); // 모든 장애물의 충돌상태를 체크해야하기 떄문에.
-        object.draw();
-    })
-
-
     // 점프 처리
     if(jumping){
         dino.y-=6;
@@ -85,6 +86,17 @@ function runByFrame(){
         jumping=false;
     }
     dino.draw();
+
+    
+    cactusArr.forEach((object , index  ,arr)=>{
+        if(object.x<0) {
+            arr.splice(index,1); // 지우기
+        }
+        object.x-=3;
+        isCrashed(dino, object); // 모든 장애물의 충돌상태를 체크해야하기 떄문에.
+        object.draw();
+    })
+
 }
 runByFrame();
 
@@ -92,7 +104,7 @@ runByFrame();
 function isCrashed(dino, cactus){
     var xDiff = cactus.x-(dino.x+dino.width);
     var yDiff = cactus.y-(dino.y+dino.height);
-    if(xDiff<=0 && yDiff<=0){
+    if(xDiff<=-15 && yDiff<=0){
         ctx.clearRect(0,0, canvas.width, canvas.height);
         cancelAnimationFrame(animation);
     }
