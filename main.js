@@ -40,30 +40,68 @@ class Cactus{
 
 // 동작 부분
 // 애니메이션은 1초에 60번정도 w,h가 변화하도록 하면 됨.
-var cactus = new Cactus();
-cactus.draw();
 
 var timer = 0;
 var cactusArr = [];
+var jump_timer =0;
+var jumping =false;
+var animation;
 function runByFrame(){
     // js기본 라이브러리 requestAnimationFrame사용. 
     // 사용하면 알아서 1초에 60번 함수를 호출하도록 함.
-    requestAnimationFrame(runByFrame)
+    animation = requestAnimationFrame(runByFrame)
     timer++;
 
     ctx.clearRect(0,0,canvas.width,canvas.height);
     
     //게임세상은 프레임으로 진행됨. -> timer이용
-    if(timer%120===0){
+    if(timer%200===0){
         var cactus = new Cactus();
         cactusArr.push(cactus);
     }
 
-    cactusArr.forEach((a)=>{
-        a.x--;
-        a.draw();
+    cactusArr.forEach((object , index  ,arr)=>{
+        if(object.x<0) {
+            arr.splice(index,1); // 지우기
+        }
+        object.x-=3;
+        isCrashed(dino, object); // 모든 장애물의 충돌상태를 체크해야하기 떄문에.
+        object.draw();
     })
 
+
+    // 점프 처리
+    if(jumping){
+        dino.y-=6;
+        jump_timer++;
+    } else{
+        if(dino.y<200){
+            dino.y+=3;
+        } else if(dino.y==200){
+            jump_timer=0;
+        }
+    }
+    if (jump_timer >25){
+        jumping=false;
+    }
     dino.draw();
 }
 runByFrame();
+
+// Collision check
+function isCrashed(dino, cactus){
+    var xDiff = cactus.x-(dino.x+dino.width);
+    var yDiff = cactus.y-(dino.y+dino.height);
+    if(xDiff<=0 && yDiff<=0){
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+        cancelAnimationFrame(animation);
+    }
+
+}
+
+// Event
+document.addEventListener('keydown', function(e){
+    if(e.code==='Space'){
+        jumping=true;
+    }
+})
