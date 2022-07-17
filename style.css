@@ -1,4 +1,8 @@
-.center-block {
+body{
+    overflow: hidden;
+}
+
+.center-block {  
     display: block;
     margin-left: auto;
     margin-right: auto; 
@@ -6,16 +10,22 @@
     aspect-ratio: 1/1;
 }
 
-.main_container{
-    width: 500px;
-    height: 400px;
-    
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    gap: 20px;
 }
+
 title{
     background-color: black;
 }
+
 canvas { 
     background-color: whitesmoke;
     width: 100%;
 }
 
+.restart {
+
+}
